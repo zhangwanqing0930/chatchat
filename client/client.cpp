@@ -1,7 +1,7 @@
 #include <iostream>
+#include <stdio.h>
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#include <stdio.h>
 #include <thread>
 #pragma comment(lib,"ws2_32.lib")
 
@@ -19,9 +19,11 @@ void recvFunc(SOCKET& clientSocket) {
         char receiveBuf[200] = "\0";
         if (recv(clientSocket, receiveBuf, sizeof(receiveBuf), 0) < 0) {
             cout << "服务器断线" << endl;
+
+
             return;
         }
-        cout << receiveBuf << '\n' << endl;
+        cout << "收到: " << receiveBuf << '\n' << endl;
     }
 }
 
@@ -45,11 +47,11 @@ int main() {
 
     //客户端连接server
     if (connect(clientSocket, (SOCKADDR*)&clientsock_in, sizeof(SOCKADDR)) == SOCKET_ERROR) {
-        cout << "connect error" << endl;
+        cout << "连接失败！" << endl;
         return 1;
     };
 
-    cout << "欢迎来到匿名聊天系统, 输入想说的话，按下回车就可以发送消息了" << endl;
+    cout << "输入语句按下回车即可发送消息！" << endl;
 
     //连接成功后先启动接收消息的线程
     thread handler(recvFunc, std::ref(clientSocket));
@@ -59,7 +61,7 @@ int main() {
     while (true) {
         char sendBuf[100];
         cin >> sendBuf;
-        cout << "消息已经成功发送\n" << endl;
+        cout << "发送成功\n" << endl;
         send(clientSocket, sendBuf, strlen(sendBuf) + 1, 0);
     }
     closesocket(clientSocket);

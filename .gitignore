@@ -32,3 +32,5 @@
 *.app
 /client/.vs/client/v16
 /server/.vs/server/v16
+/server/Debug
+/client/Debug

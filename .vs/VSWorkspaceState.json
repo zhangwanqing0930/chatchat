@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\client",
+    "\\server"
   ],
-  "SelectedNode": "\\server",
+  "SelectedNode": "\\client\\client.cpp",
   "PreviewInSolutionExplorer": false
 }
